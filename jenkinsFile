@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
 		//bat 'aws s3 cp file://multiregion_describe_instnaces.zip s3://hands-on-demo-bucket-source/lambda-code --recursive'
-		bat 'aws s3 sync . s3://hands-on-demo-bucket-source/lambda-code '
+		bat 'aws s3 sync multiregion_describe_instnaces.zip s3://hands-on-demo-bucket-source/lambda-code '
 		script{
                 try{
 			bat 'aws lambda update-function-code --function-name  Project-Demo-Describe-Instance-Lambda-dev --zip-file fileb://multiregion_describe_instnaces.zip'
