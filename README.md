@@ -18,10 +18,10 @@
 
 ## Pipeline Flow Chart :
 
-![Jenkins Pipeline Flow Chart !!](https://github.com/trisha2694/LambdaAutomation/PipelineFlowChart.png?raw=true)
+![Jenkins Pipeline Flow Chart !!](https://github.com/trisha2694/AutomationTask/PipelineFlowChart.png?raw=true)
 
 ## Lambda Triger Automation :
-###Created an REST API to serve the purpose here !!
+### Created an REST API to serve the purpose here !!
 #### Steps to Create API and its Configuration :
 1. Go to AWS Console and search **API Gateway**service
 2. Then choose **APIs** from Left Pannel and the **REST API** __(with full control option one)__ among all other APIs type options and click on **Build**.
