@@ -5,12 +5,10 @@ pipeline {
         stage('Build') {
             steps {
 		bat 'aws cp multiregion_describe_instnaces.zip s3://hands-on-demo-bucket-source/lambda-code --recursive'
-                try
-                {
+                try{
 			bat 'aws lambda update-function-code --function-name  my-function --zip-file fileb://multiregion_describe_instnaces.zip'
                 }
-                catch(Exception e)
-                {				  
+                catch(Exception e){				  
                 	bat 'aws cloudformation create-stack --stack-name aws-lambda-provisioning --template-body file://LambdaProvisiong-CFT.json'
                 }
            }
