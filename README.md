@@ -18,7 +18,7 @@
 
 ## Pipeline Flow Chart :
 
-![Jenkins Pipeline Flow Chart !!](https://github.com/trisha2694/AutomationTask/blob/main/PipelineFlowChart.png?raw=true)
+![Jenkins Pipeline Flow Chart !!](https://github.com/trisha2694/AutomationTask/blob/main/JenkinsPipelineFlowChart.png?raw=true)
 
 ## Lambda Triger Automation :
 ### Created an REST API to serve the purpose here !!
