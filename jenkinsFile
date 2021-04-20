@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-		bat 'aws s3 cp https://github.com/trisha2694/AutomationTask/blob/main/multiregion_describe_instnaces.zip s3://hands-on-demo-bucket-source/lambda-code --recursive'
+		bat 'aws s3 cp file://multiregion_describe_instnaces.zip s3://hands-on-demo-bucket-source/lambda-code --recursive'
 		script{
                 try{
 			bat 'aws lambda update-function-code --function-name  my-function --zip-file fileb://multiregion_describe_instnaces.zip'
