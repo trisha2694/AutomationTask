@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+				bat 'aws cp multiregion_describe_instnaces.zip s3://hands-on-demo-bucket-source/lambda-code --recursive'
+                try
+                {
+					bat 'aws lambda update-function-code --function-name  my-function --zip-file fileb://multiregion_describe_instnaces.zip'
+                }
+                catch
+                {				  
+                  bat 'aws cloudformation create-stack --stack-name aws-lambda-provisioning --template-body file://LambdaProvisiong-CFT.json'
+                }
+           }
+        }
+    }
+}
