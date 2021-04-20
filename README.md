@@ -2,14 +2,14 @@
 
 ## About the Repository
 ### This Repository explains:
-..* The steps to automate AWS lambda provisioning through jenkins pipeline .
-..* How to Automate Lambda Trigger using API Gateway.
+- The steps to automate AWS lambda provisioning through jenkins pipeline .
+- How to Automate Lambda Trigger using API Gateway.
 
 ### This Repository consists of multiple files :
-..* EC2 Provisioning Templates : AWS CloudFormation templates is programmed to create EC2 in multiple region , should be deployed through stackset.
-..* Lambda Provisioning Templates : AWS CloudFormation templates is programmed to create Lambda with python 3.8 as runtime .
-..* Lambda Code : Python Code to list all the ec2 instances in multiple regions.
-..* JenkinsFile : JenkinsFile to trigger the Lambda provisioning template.
+- EC2 Provisioning Templates : AWS CloudFormation templates is programmed to create EC2 in multiple region , should be deployed through stackset.
+- Lambda Provisioning Templates : AWS CloudFormation templates is programmed to create Lambda with python 3.8 as runtime .
+- Lambda Code : Python Code to list all the ec2 instances in multiple regions.
+- JenkinsFile : JenkinsFile to trigger the Lambda provisioning template.
 
 ## Automation Step by Step:
 1. Run the EC2 Provisioning Templates through stackset in multiple region as per your requirement .
