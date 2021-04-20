@@ -10,7 +10,7 @@ pipeline {
 			bat 'aws lambda update-function-code --function-name  my-function --zip-file fileb://multiregion_describe_instnaces.zip'
                 }
                 catch(Exception e){				  
-                	bat 'aws cloudformation create-stack --stack-name aws-lambda-provisioning --template-body file://LambdaProvisiong-CFT.json'
+                	bat 'aws cloudformation create-stack --stack-name aws-lambda-provisioning --template-body file://LambdaProvisiong-CFT.json --capabilities CAPABILITY_NAMED_IAM'
                 }
 		}
            }
