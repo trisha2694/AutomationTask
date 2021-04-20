@@ -18,7 +18,7 @@
 
 ## Pipeline Flow Chart :
 
-![Jenkins Pipeline Flow Chart !!](https://github.com/trisha2694/AutomationTask/blob/main/JenkinsPipelineFlowChart.png?raw=true)
+![Jenkins Pipeline Flow Chart !!](https://github.com/trisha2694/AutomationTask/blob/main/PipelineFlowChart.png?raw=true)
 
 ## Lambda Triger Automation :
 ### Created an REST API to serve the purpose here !!
@@ -32,4 +32,5 @@
 7. Then go to the method created and do its setup , as here we are creating this api to trigger lambda so we will choose Integration type as **Lambda Function** then check the box **Use Lambda Proxy integration** then choose the region in which your lambda function is and the your Lambda name and then click on **Save** .
 8. After this one Checkbox will appear there click on **OK**
 9. Again click on the method you have created and Choose the Deploy API (option from the **Actions** Drop down) , give deployment stage name (eg . test/dev/prod etc)
+10. Once Deployment is done go to the **API You have created** , stretch it and go to the method which was deployed in above step , there you can see one url , copy the url and hit it from the browser , you can see the Lambda output.
 
