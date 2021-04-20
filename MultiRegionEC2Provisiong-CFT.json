@@ -1,0 +1,184 @@
+
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "AWS Cloud Formation template for provisioning Ec2 instance in multiregion",
+    "Parameters": {
+		"EnvironUsed": {
+            "Default": "dev",
+            "Description": "The Environment Used",
+            "Type": "String",
+            "AllowedValues": [
+				"lab",
+                "dev",
+                "uat",
+                "prod"
+                
+            ],
+            "ConstraintDescription": "Must be one of the four Allowed Values i.e. dev, uat, lab, prod"
+        },
+        "OperatorEmail": {
+            "Default": "trisha26sinha@gmail.com",
+            "Description": "Email address to notify if there are any operational issues related to application",
+            "Type": "String",
+            "AllowedPattern": "([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)",
+            "ConstraintDescription": "must be a valid email address."
+        },
+ 		"ProjectName": {
+ 			"Default": "Project-Demo",
+ 			"Description": "Enter valid Project Name.",
+ 			"Type": "String"
+ 		},
+		"InstanceType": {
+ 			"Default": "t2.micro",
+ 			"Description": "Enter valid Instance type",
+ 			"Type": "String"
+ 		},
+		"SubnetId": {
+ 			"Default": "subnet-0186f4e25c21af5b4",
+ 			"Description": "Enter valid Subnet Id for us-east-1",
+ 			"Type": "String"
+ 		}
+		 
+    },	
+	"Conditions": {
+		"IsRegionNotUsEast1": {
+			"Fn::Not": [
+				{
+					"Fn::Equals": [
+						{"Ref": "AWS::Region"},
+						"us-east-1"
+					]
+				}
+			]
+		},
+		"IsRegionUsEast1": {
+			"Fn::Equals": [
+				{"Ref": "AWS::Region"},
+				"us-east-1"
+			]
+		}
+	},
+	"Mappings": {
+		"Regions": {
+			"ap-south-1":{
+				"ImageId" :	"ami-0bcf5425cdc1d8a85"
+			},
+			"ap-northeast-1":{
+				"ImageId" :	"ami-06098fd00463352b6"
+			},
+			"ap-northeast-2":{
+				"ImageId" :	"ami-07464b2b9929898f8"
+			},
+			"ap-northeast-3":{
+				"ImageId" :	"ami-0b96303a469fa0678"
+			},
+			"ap-southeast-1":{
+				"ImageId" :	"ami-03ca998611da0fe12"
+			},
+			"ap-southeast-2":{
+				"ImageId" : "ami-06202e06492f46177"
+			},
+			"ap-east-1":{
+				"ImageId" : ""
+			},
+			"af-south-1":{
+				"ImageId" : ""
+			},
+			"us-east-1" :{
+				"ImageId" : "ami-0742b4e673072066f"
+			},
+			"us-east-2" :{
+				"ImageId" : "ami-05d72852800cbf29e"
+			},
+			"us-west-1" :{
+				"ImageId" : "ami-0577b787189839998"
+			},
+			"us-west-2" :{
+				"ImageId" : "ami-0518bb0e75d3619ca"
+			},
+			"eu-central-1":{
+				"ImageId" : "ami-0db9040eb3ab74509"
+			},
+			"eu-west-1":{
+				"ImageId" : "ami-0ffea00000f287d30"
+			},
+			"eu-west-2":{
+				"ImageId" :	"ami-0fbec3e0504ee1970"
+			},
+			"eu-west-3":{
+				"ImageId" :	"ami-00dd995cb6f0a5219"
+			},
+			"eu-north-1":{
+				"ImageId" : "ami-02baf2b4223a343e8"
+			},
+			"eu-south-1":{
+				"ImageId" : ""
+			},
+			"ca-central-1":{
+				"ImageId" :"ami-09934b230a2c41883"
+			},
+			"sa-east-1":{
+				"ImageId" :"ami-0c27c96aaa148ba6d"
+			},
+			"me-south-1":{
+				"ImageId" :"ami-0c27c96aaa148ba6d"
+			}		
+			
+		}
+	},
+    "Resources": {
+		"EC2InstanceForUSEast1":{
+		  "Type" : "AWS::EC2::Instance",
+		  "Condition" : "IsRegionUsEast1",
+		  "Properties" : {					  
+				"ImageId" :{
+					"Fn::FindInMap": ["Regions", {"Ref": "AWS::Region"}, "ImageId"]
+				},
+				"InstanceType" : {"Ref" : "InstanceType"},
+				"SubnetId" : {"Ref" : "SubnetId"},
+				"Tags":[
+					{
+					  "Key" : "ProjectName",
+					  "Value" : {"Ref": "ProjectName"}
+					},					
+					{
+					  "Key" : "Contact",
+					  "Value" : {"Ref": "OperatorEmail"}
+					}					
+				]		  
+			}
+		},
+		"Ec2Instance":{
+		  "Type" : "AWS::EC2::Instance",
+		  "Condition" : "IsRegionNotUsEast1",
+		  "Properties" : {					  
+				"ImageId" :{
+					"Fn::FindInMap": ["Regions", {"Ref": "AWS::Region"}, "ImageId"]
+				},
+				"InstanceType" : {"Ref" : "InstanceType"},
+				"Tags":[
+					{
+					  "Key" : "ProjectName",
+					  "Value" : {"Ref": "ProjectName"}
+					},					
+					{
+					  "Key" : "Contact",
+					  "Value" : {"Ref": "OperatorEmail"}
+					}					
+				]		  
+			}
+		}
+	},
+	"Outputs": {		
+		"InstanceId": {
+			"Description": "Arn of the Lambda Role",
+			"Value": {
+			  "Fn::If" : [
+				"IsRegionUsEast1",
+				{"Ref" : "EC2InstanceForUSEast1"},
+				{"Ref" : "Ec2Instance"}
+			  ]
+			}
+		}
+	}
+}
