@@ -126,7 +126,7 @@
 		},				
 		"Lambda": {
 			"Type": "AWS::Lambda::Function",
-			"DependsOn":["LambdaLogGroup","LambdaRole"]
+			"DependsOn":["LambdaLogGroup","LambdaRole"],
 			"Properties": {
 				"Handler": "lambda_function.lambda_handler",
 				"FunctionName": {"Fn::Join": ["-",[{"Ref": "ProjectName"},"Describe-Instance-Lambda",{"Ref": "EnvironUsed"}]]},
